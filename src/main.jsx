@@ -7,11 +7,18 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout/Layout.jsx";
 import HomePage from "./pages/Home/HomePage.jsx";
 import NoPage from "./pages/Nopage/NoPage.jsx";
+import ProductInfo from "./pages/ProductInfo/ProductInfo.jsx";
+import ScrollTop from "./components/ScrollTop/ScrollTop.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <>
+        <ScrollTop />
+        <Layout />
+      </>
+    ),
     children: [
       {
         path: "",
@@ -20,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "*",
         element: <NoPage />,
+      },
+      {
+        path: "productinfo",
+        element: <ProductInfo />,
       },
     ],
   },
