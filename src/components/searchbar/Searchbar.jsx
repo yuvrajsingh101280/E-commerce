@@ -62,7 +62,7 @@ const Searchbar = () => {
 
       <div className="flex justify-center">
         {search && (
-          <div className="block absolute bg-gray-200 w-96 md:w-96 lg:w-96 z-50 my-1 rounded-lg px-2 py-2">
+          <div className="block absolute cursor-pointer bg-gray-200 w-96 md:w-96 lg:w-96 z-50 my-1 rounded-lg px-2 py-2">
             {filterSearchData.length > 0 ? (
               <>
                 {filterSearchData.map((item, index) => {
