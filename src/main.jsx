@@ -10,6 +10,7 @@ import NoPage from "./pages/Nopage/NoPage.jsx";
 import ProductInfo from "./pages/ProductInfo/ProductInfo.jsx";
 import ScrollTop from "./components/ScrollTop/ScrollTop.jsx";
 import CartPage from "./pages/cart/CartPage.jsx";
+import AllProduct from "./pages/AllProduct/AllProduct.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "cart",
         element: <CartPage />,
+      },
+      {
+        path: "allproduct",
+        element: <AllProduct />,
       },
     ],
   },

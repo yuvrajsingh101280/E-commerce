@@ -42,7 +42,7 @@ const CartPage = () => {
     <div>
       <div className="container mx-auto px-4 max-w-7xl px-2 lg:px-0">
         <div className="mx-auto max-w-2xl py-8 lg:max-w-7xl">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"></h1>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Shopping Cart</h1>
           <form className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
             <section
               aria-labelledby="cart-heading"
@@ -100,7 +100,9 @@ const CartPage = () => {
                     </li>
                     <div className="mb-2 flex">
                       <div className="min-w-24 flex">
-                        <button type="button" className="h-7 w-7">-</button>
+                        <button type="button" className="h-7 w-7">
+                          -
+                        </button>
                         <input
                           type="text"
                           className="mx-1 h-7 w-9 rounded-md border text-center"
@@ -109,7 +111,9 @@ const CartPage = () => {
                         <button
                           type="button"
                           className="flex h-7 w-7 items-center justify-center"
-                        >+</button>
+                        >
+                          +
+                        </button>
                       </div>
                       <div className="ml-6 flex text-sm">
                         <button
@@ -169,7 +173,9 @@ const CartPage = () => {
                 </dl>
                 <div className="px-2 pb-4 font-medium text-green-700">
                   <div className="flex gap-4 mb-6">
-                    <button className="w-full px-4 py-3 text-center text-gray-100 bg-blue-600 border border-transparent dark:border-gray-700 hover:border-pink-500 hover:text-pink-700 hover:bg-pink-100 rounded-xl">Buy Now</button>
+                    <button className="w-full px-4 py-3 text-center text-gray-100 bg-blue-600 border border-transparent dark:border-gray-700 hover:border-pink-500 hover:text-pink-700 hover:bg-pink-100 rounded-xl">
+                      Buy Now
+                    </button>
                   </div>
                 </div>
               </div>
