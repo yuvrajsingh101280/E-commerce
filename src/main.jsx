@@ -11,6 +11,8 @@ import ProductInfo from "./pages/ProductInfo/ProductInfo.jsx";
 import ScrollTop from "./components/ScrollTop/ScrollTop.jsx";
 import CartPage from "./pages/cart/CartPage.jsx";
 import AllProduct from "./pages/AllProduct/AllProduct.jsx";
+import LoginPage from "./pages/registration/LoginPage.jsx";
+import SignupPage from "./pages/registration/SignupPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +43,14 @@ const router = createBrowserRouter([
       {
         path: "allproduct",
         element: <AllProduct />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
+      {
+        path: "signup",
+        element: <SignupPage />,
       },
     ],
   },
