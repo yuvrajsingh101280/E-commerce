@@ -13,6 +13,7 @@ import CartPage from "./pages/cart/CartPage.jsx";
 import AllProduct from "./pages/AllProduct/AllProduct.jsx";
 import LoginPage from "./pages/registration/LoginPage.jsx";
 import SignupPage from "./pages/registration/SignupPage.jsx";
+import Userdashboard from "./pages/user/Userdashboard.jsx";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupPage />,
+      },
+      {
+        path: "user-dashboard",
+        element: <Userdashboard />,
       },
     ],
   },
