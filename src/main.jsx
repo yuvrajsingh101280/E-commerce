@@ -14,6 +14,9 @@ import AllProduct from "./pages/AllProduct/AllProduct.jsx";
 import LoginPage from "./pages/registration/LoginPage.jsx";
 import SignupPage from "./pages/registration/SignupPage.jsx";
 import Userdashboard from "./pages/user/Userdashboard.jsx";
+import Admindashboard from "./pages/admin/Admindashboard.jsx";
+import AddProductPage from "./pages/admin/AddProductPage.jsx";
+import UpdateProductPage from "./pages/admin/UpdateProductPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +59,18 @@ const router = createBrowserRouter([
       {
         path: "user-dashboard",
         element: <Userdashboard />,
+      },
+      {
+        path: "admin-dashboard",
+        element: <Admindashboard />,
+      },
+      {
+        path: "addproduct",
+        element: <AddProductPage />,
+      },
+      {
+        path: "updateproduct",
+        element: <UpdateProductPage />,
       },
     ],
   },

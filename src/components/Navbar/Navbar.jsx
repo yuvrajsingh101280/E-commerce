@@ -21,8 +21,9 @@ const Navbar = () => {
         <Link to={"/user-dashboard"}>Kamal</Link>
       </li>
       {/* Admin */}
-      {/* <li>
-            </li> */}
+      <li>
+        <Link to={"/admin-dashboard"}>Admin</Link>
+      </li>
       {/* logout */}
       {/* <li>
             </li> */}
