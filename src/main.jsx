@@ -19,6 +19,8 @@ import AddProductPage from "./pages/admin/AddProductPage.jsx";
 import UpdateProductPage from "./pages/admin/UpdateProductPage.jsx";
 import MyState from "./context/MyState.jsx";
 import { ToastBar, Toaster } from "react-hot-toast";
+import protectedRouteForUser from "./protectedRoute/protectedRouteForUser.jsx";
+import ProtectedRouteForAdmin from "./protectedRoute/ProtectedRouteForAdmin.jsx";
 
 const router = createBrowserRouter([
   {
@@ -60,19 +62,36 @@ const router = createBrowserRouter([
       },
       {
         path: "user-dashboard",
-        element: <Userdashboard />,
+        element: (
+          <protectedRouteForUser>
+            <Userdashboard />
+          </protectedRouteForUser>
+        ),
       },
       {
         path: "admin-dashboard",
-        element: <Admindashboard />,
+        element: (
+          <ProtectedRouteForAdmin>
+            <Admindashboard />
+          </ProtectedRouteForAdmin>
+        ),
       },
       {
         path: "addproduct",
-        element: <AddProductPage />,
+        element: (
+          <ProtectedRouteForAdmin>
+            <AddProductPage />
+          </ProtectedRouteForAdmin>
+        ),
       },
       {
         path: "updateproduct",
-        element: <UpdateProductPage />,
+        element: (
+          <ProtectedRouteForAdmin>
+            {" "}
+            <UpdateProductPage />
+          </ProtectedRouteForAdmin>
+        ),
       },
     ],
   },

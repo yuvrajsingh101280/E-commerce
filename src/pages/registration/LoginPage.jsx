@@ -15,6 +15,9 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
+  // show and hide password
+
+  const [showpassword, setshowpassword] = useState(false);
 
   const userLoginFunction = async () => {
     if (userlogin.email === "" || userlogin.password === "") {
@@ -89,7 +92,7 @@ const LoginPage = () => {
         </div>
         <div className="mb-5">
           <input
-            type="password"
+            type={showpassword ? "text" : "password"}
             placeholder="Password"
             className="bg-blue-50 border border-blue-200 px-2 py-2 w-96 rounded-md outline-none placeholder-blue-200"
             value={userlogin.password}
@@ -101,6 +104,19 @@ const LoginPage = () => {
             }}
           />
         </div>
+
+        <div className="mb-5 flex gap-3">
+          <input
+            type="checkbox"
+            id="showpassword"
+            className="border border-blue-300"
+            onChange={() => setshowpassword(!showpassword)}
+          />
+          <label htmlFor="showpassword">
+            {showpassword ? "Hide password" : "Show password"}
+          </label>
+        </div>
+
         <div className="mb-5">
           <button
             type="button"
