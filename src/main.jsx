@@ -17,6 +17,8 @@ import Userdashboard from "./pages/user/Userdashboard.jsx";
 import Admindashboard from "./pages/admin/Admindashboard.jsx";
 import AddProductPage from "./pages/admin/AddProductPage.jsx";
 import UpdateProductPage from "./pages/admin/UpdateProductPage.jsx";
+import MyState from "./context/MyState.jsx";
+import { ToastBar, Toaster } from "react-hot-toast";
 
 const router = createBrowserRouter([
   {
@@ -79,7 +81,11 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider>
-      <RouterProvider router={router} />
+      <MyState>
+        {" "}
+        <RouterProvider router={router} />
+        <Toaster />
+      </MyState>
     </ThemeProvider>
   </React.StrictMode>
 );
