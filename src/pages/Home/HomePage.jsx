@@ -6,7 +6,7 @@ import Track from "../../components/track/Track";
 import Testimonial from "../../components/Testimonial/Testimonial";
 import myContext from "../../context/MyContext";
 import { useContext } from "react";
-import { Loader } from "lucide-react";
+
 
 const HomePage = () => {
   const context = useContext(myContext);
