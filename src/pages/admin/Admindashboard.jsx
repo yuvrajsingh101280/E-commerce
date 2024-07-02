@@ -6,6 +6,8 @@ import UserDetails from "../../components/admin/UserDetails";
 import "react-tabs/style/react-tabs.css"; // Make sure to include this CSS file for react-tabs
 
 const Admindashboard = () => {
+  const user = JSON.parse(localStorage.getItem("users"));
+
   return (
     <div>
       {/* Top */}
@@ -31,12 +33,23 @@ const Admindashboard = () => {
               {/* Text */}
               <div className="">
                 <h1 className="text-center text-lg text-blue-500">
-                  <span className="font-bold">Name:</span> Kamal Nayan Upadhyay
+                  <span className="font-bold">Name:</span>
+                  {user?.name}
                 </h1>
                 <h1 className="text-center text-lg text-blue-500">
-                  <span className="font-bold">Email:</span> test@gmail.com
+                  <span className="font-bold">Email:</span>
+                  {user?.email}
                 </h1>
-                <h1></h1>
+                {/* Date  */}
+                <h1 className=" text-center text-lg">
+                  <span className=" font-bold">Date : </span>
+                  {user?.date}
+                </h1>
+                {/* Role  */}
+                <h1 className=" text-center text-lg">
+                  <span className=" font-bold">Role : </span>
+                  {user?.role}
+                </h1>
               </div>
             </div>
           </div>
