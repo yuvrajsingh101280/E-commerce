@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   return (
     <div>
       <Navbar />
-      <div className="min-h-screen">
+      <div className="min-h-screen ">
         <Outlet />
       </div>
       <Footer />

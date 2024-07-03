@@ -183,7 +183,7 @@ const AddProductPage = () => {
             >
               <option disabled selected>
                 Select Product Category
-              </option>
+              </option> 
               {categoryList.map((value, index) => {
                 const { name } = value;
 
