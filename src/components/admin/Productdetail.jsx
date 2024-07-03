@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import myContext from "../../context/MyContext";
+import AllProduct from "../../pages/AllProduct/AllProduct";
 
 const Productdetail = () => {
   const context = useContext(myContext);
   const { loading, getAllProuduct } = context;
-
+ 
   return (
     <div>
       <div className="py-5 px-3 flex justify-between items-center">
