@@ -85,7 +85,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "updateproduct",
+        path: "updateproduct/:id",
         element: (
           <ProtectedRouteForAdmin>
             {" "}
