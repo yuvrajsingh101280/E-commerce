@@ -3,13 +3,28 @@ import { Link, useNavigate } from "react-router-dom";
 import myContext from "../../context/MyContext";
 import AllProduct from "../../pages/AllProduct/AllProduct";
 import Loader from "../../components/loader/Loader";
+import { deleteDoc, doc } from "firebase/firestore";
+import { fireDB } from "../../firebase/Firebase";
+import toast from "react-hot-toast";
 const Productdetail = () => {
   const context = useContext(myContext);
-  const { loading, getAllProduct } = context;
+  const { loading, getAllProduct, setLoading, getAllProductFunction } = context;
   // Get all product function
 
   const navigate = useNavigate();
+  const deleteProduct = async (id) => {
+    setLoading(true);
+    try {
+      await deleteDoc(doc(fireDB, "products", id));
 
+      toast.success("Product Deleted successfully");
+      getAllProductFunction();
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
   return (
     <div>
       <div className="py-5 px-3 flex justify-between items-center">
@@ -115,7 +130,10 @@ const Productdetail = () => {
                   >
                     Edit
                   </td>
-                  <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-blue-100 stroke-slate-500 text-slate-500 text-red-500 cursor-pointer ">
+                  <td
+                    onClick={() => deleteProduct(id)}
+                    className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-blue-100 stroke-slate-500 text-slate-500 text-red-500 cursor-pointer "
+                  >
                     Delete
                   </td>
                 </tr>
