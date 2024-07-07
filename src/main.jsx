@@ -41,7 +41,7 @@ const router = createBrowserRouter([
         element: <NoPage />,
       },
       {
-        path: "productinfo",
+        path: "productinfo/:id",
         element: <ProductInfo />,
       },
       {
