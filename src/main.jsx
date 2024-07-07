@@ -21,6 +21,7 @@ import MyState from "./context/MyState.jsx";
 import { ToastBar, Toaster } from "react-hot-toast";
 import protectedRouteForUser from "./protectedRoute/protectedRouteForUser.jsx";
 import ProtectedRouteForAdmin from "./protectedRoute/ProtectedRouteForAdmin.jsx";
+import CategoryPage from "./pages/category/CategoryPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
             <UpdateProductPage />
           </ProtectedRouteForAdmin>
         ),
+      },
+      {
+        path: "/category/:categoryname",
+        element: <CategoryPage />,
       },
     ],
   },
