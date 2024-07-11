@@ -18,10 +18,13 @@ import Admindashboard from "./pages/admin/Admindashboard.jsx";
 import AddProductPage from "./pages/admin/AddProductPage.jsx";
 import UpdateProductPage from "./pages/admin/UpdateProductPage.jsx";
 import MyState from "./context/MyState.jsx";
-import { ToastBar, Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import protectedRouteForUser from "./protectedRoute/protectedRouteForUser.jsx";
 import ProtectedRouteForAdmin from "./protectedRoute/ProtectedRouteForAdmin.jsx";
 import CategoryPage from "./pages/category/CategoryPage.jsx";
+
+import { Provider } from "react-redux";
+import store from "./redux/store.jsx";
 
 const router = createBrowserRouter([
   {
@@ -89,7 +92,6 @@ const router = createBrowserRouter([
         path: "updateproduct/:id",
         element: (
           <ProtectedRouteForAdmin>
-            {" "}
             <UpdateProductPage />
           </ProtectedRouteForAdmin>
         ),
@@ -104,12 +106,15 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <MyState>
-        {" "}
-        <RouterProvider router={router} />
-        <Toaster />
-      </MyState>
-    </ThemeProvider>
+    {" "}
+    <Provider store={store}>
+      {" "}
+      <ThemeProvider>
+        <MyState>
+          <RouterProvider router={router} />
+          <Toaster />
+        </MyState>
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>
 );
