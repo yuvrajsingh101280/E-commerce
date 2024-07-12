@@ -88,6 +88,7 @@ import toast from "react-hot-toast";
 // ];
 
 const HomepageProducCard = () => {
+  const user = JSON.parse(localStorage.getItem("users"));
   const navigate = useNavigate();
   const context = useContext(myContext);
 
@@ -98,13 +99,22 @@ const HomepageProducCard = () => {
 
   const addCart = (item) => {
     // console.log(item)
-    dispatch(addToCart(item));
-    toast.success("Add to Cart");
+
+    if (user) {
+      dispatch(addToCart(item));
+      toast.success("Add to Cart");
+    } else {
+      toast.error("Please log in to add items to the cart");
+    }
   };
   const deleteCart = (item) => {
     // console.log(item)
-    dispatch(deleteFromCart(item));
-    toast.success("Delete Cart");
+    if (user) {
+      dispatch(deleteFromCart(item));
+      toast.success("Deleted from Cart");
+    } else {
+      toast.error("Please log in to delete items from the cart");
+    }
   };
   console.log(cartItems);
 
