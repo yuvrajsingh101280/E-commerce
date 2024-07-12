@@ -1,15 +1,27 @@
 import React from "react";
 import Searchbar from "../searchbar/Searchbar";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { ShoppingCart } from "lucide-react";
+
 const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("users"));
   const navigate = useNavigate();
 
   // logout function
-
   const logout = () => {
     localStorage.clear("user");
     navigate("/login");
+  };
+
+  const cartItems = useSelector((state) => state.cart);
+
+  const handleCartClick = () => {
+    if (!user) {
+      navigate("/login");
+    } else {
+      navigate("/cart");
+    }
   };
 
   const navList = (
@@ -31,7 +43,7 @@ const Navbar = () => {
         ""
       )}
 
-      {/* loging */}
+      {/* Login */}
       {!user ? (
         <li>
           <Link to={"/login"}>Login</Link>
@@ -52,33 +64,43 @@ const Navbar = () => {
           <Link to={"/admin-dashboard"}>{user?.name}</Link>
         </li>
       )}
-      {/* logout */}
+      {/* Logout */}
       {user && (
         <li className="cursor-pointer" onClick={logout}>
-          logout
+          Logout
         </li>
       )}
       {/* Cart */}
-      <li>
-        <Link to={"/cart"}></Link>
+      <li className="relative">
+        <div className="cursor-pointer" onClick={handleCartClick}>
+          <ShoppingCart />
+        </div>
+        {user ? (
+          <div className="absolute bg-white text-black bottom-2 left-6 text-xs sm:text-sm rounded-full w-5 h-5 sm:w-8 sm:h-8 flex items-center justify-center">
+            {cartItems.length}
+          </div>
+        ) : (
+          ""
+        )}
       </li>
     </ul>
   );
+
   return (
     <nav className="bg-blue-600 z-60 sticky top-0">
-      {/* main  */}
+      {/* main */}
       <div className="lg:flex lg:justify-between items-center py-3 lg:px-3 ">
-        {/* left  */}
+        {/* left */}
         <div className="left py-3 lg:py-0">
           <Link to={"/"}>
-            <h2 className=" font-bold text-white text-2xl text-center">
+            <h2 className="font-bold text-white text-2xl text-center">
               E-Bharat
             </h2>
           </Link>
         </div>
-        {/* right  */}
+        {/* right */}
         <div className="right flex justify-center mb-4 lg:mb-0">{navList}</div>
-        {/* Search Bar  */}
+        {/* Search Bar */}
         <Searchbar />
       </div>
     </nav>
