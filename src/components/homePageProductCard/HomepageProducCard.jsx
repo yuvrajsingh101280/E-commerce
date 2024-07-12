@@ -105,6 +105,7 @@ const HomepageProducCard = () => {
       toast.success("Add to Cart");
     } else {
       toast.error("Please log in to add items to the cart");
+      navigate("/login");
     }
   };
   const deleteCart = (item) => {
@@ -114,6 +115,7 @@ const HomepageProducCard = () => {
       toast.success("Deleted from Cart");
     } else {
       toast.error("Please log in to delete items from the cart");
+      navigate("/login");
     }
   };
   console.log(cartItems);
