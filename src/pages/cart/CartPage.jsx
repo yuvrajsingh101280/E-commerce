@@ -168,7 +168,7 @@ const CartPage = () => {
                         Price ({cartItemTotal} item)
                       </dt>
                       <dd className="text-sm font-medium text-gray-900">
-                        {cartTotal}
+                        ₹{cartTotal}
                       </dd>
                     </div>
 

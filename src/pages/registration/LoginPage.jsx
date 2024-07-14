@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, fireDB } from "../../firebase/Firebase";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import Loader from "../../components/loader/Loader";
+import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
   const context = useContext(myContext);
@@ -16,7 +17,7 @@ const LoginPage = () => {
     password: "",
   });
   // show and hide password
-
+  const dispatch = useDispatch();
   const [showpassword, setshowpassword] = useState(false);
 
   const userLoginFunction = async () => {
@@ -42,6 +43,8 @@ const LoginPage = () => {
         querySnapshot.forEach((doc) => (user = doc.data()));
         if (user) {
           localStorage.setItem("users", JSON.stringify(user));
+
+
           setUserlogin({
             email: "",
             password: "",

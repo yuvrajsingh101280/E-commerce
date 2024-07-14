@@ -31,6 +31,10 @@ export const cartSlice = createSlice({
         return item;
       });
     },
+    clearCart: (state) => {
+      state.splice(0, state.length);
+      localStorage.removeItem("cart");
+    },
   },
 });
 // action creators are generated for each case reducer function
@@ -40,5 +44,6 @@ export const {
   deleteFromCart,
   incrementQuantity,
   decrementQuantity,
+  clearCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;

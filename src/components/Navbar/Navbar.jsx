@@ -1,16 +1,19 @@
 import React from "react";
 import Searchbar from "../searchbar/Searchbar";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ShoppingCart } from "lucide-react";
+import { clearCart } from "../../redux/cartSlice";
 
 const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("users"));
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // logout function
   const logout = () => {
     localStorage.clear("user");
+    dispatch(clearCart());
     navigate("/login");
   };
 
