@@ -1,48 +1,53 @@
 import { useNavigate, useParams } from "react-router";
 
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import myContext from "../../context/MyContext";
 import Loader from "../../components/loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteFromCart } from "../../redux/cartSlice";
 import toast from "react-hot-toast";
-const user = JSON.parse(localStorage.getItem("users"));
+
 const CategoryPage = () => {
   const { categoryname } = useParams();
+
+  const user = JSON.parse(localStorage.getItem("users"));
 
   const context = useContext(myContext);
   const { getAllProduct, loading } = context;
 
   const navigate = useNavigate();
-
   // filter product
   const filterProduct = getAllProduct.filter((obj) =>
     obj.category.includes(categoryname)
   );
-
   // console.log(filterProduct)
+
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const addItem = useCallback(
+    (item) => {
+      if (user) {
+        dispatch(addToCart(item));
+        toast.success("Item added successfully");
+      } else {
+        toast.error("please login first");
+        navigate("/login");
+      }
+    },
+    [cartItems]
+  );
 
-  const addItems = (item) => {
-    if (user) {
-      dispatch(addToCart(item));
-      toast.success("Item added successfully");
-    } else {
-      toast.error("please log in first");
-      navigate("/login");
-    }
-  };
-
-  const deleteItems = (item) => {
-    dispatch(deleteFromCart(item));
-    toast.success("Item Deleted successfully");
-  };
+  const deleteItem = useCallback(
+    (item) => {
+      dispatch(deleteFromCart(item));
+      toast.success("Item deleted Successfully--");
+    },
+    [cartItems]
+  );
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
-
   return (
     <div className="mt-10">
       {/* Heading  */}
@@ -90,17 +95,17 @@ const CategoryPage = () => {
                               {user &&
                               cartItems.some((p) => p.id === item.id) ? (
                                 <button
-                                  onClick={deleteItems(item)}
+                                  onClick={() => deleteItem(item)}
                                   className=" bg-red-500 hover:bg-red-600 w-full text-white py-[4px] rounded-lg font-bold"
                                 >
-                                  Delete From cart
+                                  Delete From Cart
                                 </button>
                               ) : (
                                 <button
-                                  onClick={addItems(item)}
+                                  onClick={() => addItem(item)}
                                   className=" bg-blue-500 hover:bg-blue-600 w-full text-white py-[4px] rounded-lg font-bold"
                                 >
-                                  Add TO cart
+                                  Add To Cart
                                 </button>
                               )}
                             </div>
@@ -117,6 +122,7 @@ const CategoryPage = () => {
                       className=" mb-2"
                       src="https://cdn-icons-png.flaticon.com/128/2748/2748614.png"
                       alt=""
+                      loading="lazy"
                     />
                   </div>
                   <h1 className=" text-black text-xl">

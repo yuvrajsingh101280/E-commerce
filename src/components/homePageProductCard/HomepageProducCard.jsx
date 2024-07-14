@@ -118,7 +118,6 @@ const HomepageProducCard = () => {
       navigate("/login");
     }
   };
-  console.log(cartItems);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
@@ -149,6 +148,7 @@ const HomepageProducCard = () => {
                       alt=""
                       className="lg:h-80 h-90 w-full"
                       onClick={() => navigate(`/productinfo/${id}`)}
+                      loading="lazy"
                     />
 
                     <div className="p-6">
