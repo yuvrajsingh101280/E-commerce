@@ -162,7 +162,7 @@ const HomepageProducCard = () => {
                         ₹{price}
                       </h1>
                       <div className="flex justify-center">
-                        {cartItems.some((p) => p.id === item.id) ? (
+                        {user && cartItems.some((p) => p.id === item.id) ? (
                           <button
                             onClick={() => deleteCart(item)}
                             className="bg-red-500 mx-auto hover:bg-red-400 transition-all  w-60 mb-6 text-white py-[4px] rounded-lg font-bold"
