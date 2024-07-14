@@ -25,7 +25,7 @@ import CategoryPage from "./pages/category/CategoryPage.jsx";
 
 import { Provider } from "react-redux";
 import store from "./redux/store.jsx";
-
+import { Analytics } from "@vercel/analytics/react";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -112,6 +112,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <ThemeProvider>
         <MyState>
           <RouterProvider router={router} />
+          <Analytics />
           <Toaster />
         </MyState>
       </ThemeProvider>
