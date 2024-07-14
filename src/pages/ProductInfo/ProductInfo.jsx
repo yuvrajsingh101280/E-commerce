@@ -1,11 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import myContext from "../../context/MyContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { fireDB } from "../../firebase/Firebase";
 import Loader from "../../components/loader/Loader";
-
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { Navigate } from "react-router-dom";
+import { addToCart } from "../../redux/cartSlice";
+import { deleteFromCart } from "../../redux/cartSlice";
 const ProductInfo = () => {
+  const user = JSON.parse(localStorage.getItem("users"));
+  const navigate = useNavigate();
+
   const context = useContext(myContext);
   const { loading, setLoading } = context;
 
@@ -29,6 +36,34 @@ const ProductInfo = () => {
   useEffect(() => {
     getProductData();
   }, [id]);
+
+  const cartItems = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const addItem = useCallback(
+    (item) => {
+      if (user) {
+        dispatch(addToCart(item));
+        toast.success("Item added successfully");
+      } else {
+        toast.error("please login first");
+        navigate("/login");
+      }
+    },
+    [cartItems]
+  );
+
+  const deleteItem = useCallback(
+    (item) => {
+      dispatch(deleteFromCart(item));
+      toast.success("Item deleted Successfully--");
+    },
+    [cartItems]
+  );
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   return (
     <div>
@@ -132,8 +167,25 @@ const ProductInfo = () => {
                     </div>
                     <div className="mb-6 " />
                     <div className="flex flex-wrap items-center mb-6">
-                      <button className="w-full px-4 py-3 text-center text-blue-600 bg-blue-100 border border-blue-600  hover:bg-blue-600 hover:text-gray-100 rounded-xl">
-                        Checkout
+                      {user && cartItems.some((p) => p.id === product.id) ? (
+                        <button
+                          onClick={() => deleteItem(product)}
+                          className="w-full px-4 py-3 text-center text-red-600 bg-red-100 border border-red-600  hover:bg-red-600 hover:text-gray-100 rounded-xl"
+                        >
+                          Delete From cart
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => addItem(product)}
+                          className="w-full px-4 py-3 text-center text-blue-600 bg-blue-100 border border-blue-600  hover:bg-blue-600 hover:text-gray-100 rounded-xl"
+                        >
+                          Add to Cart
+                        </button>
+                      )}
+                    </div>
+                    <div className="flex gap-4 mb-6">
+                      <button className="w-full px-3 py-4 text-center text-gray-100 bg-blue-600 border border-transparent dark:border-gray-700 hover:border-blue-500 hover-text-blue-700 hover:bg-blue-100 rounded-xl">
+                        Buy Now
                       </button>
                     </div>
                   </div>
