@@ -6,34 +6,38 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state, action) {
-      state.push(action.payload);
+      const itemExist = state.find((item) => item.id == action.payload.id);
+      if (itemExist) {
+        itemExist.quantity += action.payload.quantity;
+      } else {
+        state.push(action.payload);
+      }
+      localStorage.setItem("cart", JSON.stringify(state));
     },
 
     deleteFromCart(state, action) {
-      return state.filter((item) => item.id != action.payload.id);
+      const updatedCart = state.filter((item) => item.id !== action.payload.id);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      return updatedCart;
     },
 
     incrementQuantity: (state, action) => {
-      state = state.map((item) => {
-        if (item.id === action.payload) {
-          item.quantity++;
-        }
-        return item;
-      });
+      const item = state.find((item) => item.id === action.payload);
+      if (item) {
+        item.quantity++;
+        localStorage.setItem("cart", JSON.stringify(state));
+      }
     },
     decrementQuantity: (state, action) => {
-      state = state.map((item) => {
-        if (item.quantity !== 1) {
-          if (item.id === action.payload) {
-            item.quantity--;
-          }
-        }
-        return item;
-      });
+      const item = state.find((item) => item.id === action.payload);
+      if (item && item.quantity > 1) {
+        item.quantity--;
+        localStorage.setItem("cart", JSON.stringify(state));
+      }
     },
     clearCart: (state) => {
-      state.splice(0, state.length);
       localStorage.removeItem("cart");
+      return [];
     },
   },
 });
