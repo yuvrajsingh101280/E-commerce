@@ -37,7 +37,7 @@ const CartPage = () => {
     .reduce((preval, currval) => preval + currval, 0);
 
   return (
-    <div>
+    <div className="mt-16">
       {cartItems.length > 0 ? (
         <div className="container mx-auto px-4 max-w-7xl px-2 lg:px-0">
           <div className="mx-auto max-w-2xl py-8 lg:max-w-7xl">
@@ -76,8 +76,8 @@ const CartPage = () => {
                               <div>
                                 <div className="flex justify-between">
                                   <h3 className="text-sm">
-                                    <div className="font-semibold text-black">
-                                      {title}
+                                    <div className="font-semibold text-black -z-10">
+                                      {title.slice(0, 20)}
                                     </div>
                                   </h3>
                                 </div>
