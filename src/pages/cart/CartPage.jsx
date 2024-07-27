@@ -7,7 +7,7 @@ import {
   incrementQuantity,
   updateQuantity,
 } from "../../redux/cartSlice";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import NoCartItem from "../../components/Nocartitem/NoCartItem";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { fireDB } from "../../firebase/Firebase";
@@ -49,7 +49,8 @@ const CartPage = () => {
     .map((item) => item.price * item.quantity)
     .reduce((preval, currval) => preval + currval, 0);
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("users"));
+  // console.log(user);
 
   const [addressInfo, setAddressInfo] = useState({
     name: "",
@@ -64,7 +65,7 @@ const CartPage = () => {
     }),
   });
 
-  const buyNowFunction = () => {
+  const buyNowFunction = async () => {
     if (
       addressInfo.name === "" ||
       addressInfo.address === "" ||
@@ -74,11 +75,15 @@ const CartPage = () => {
       return toast.error("All fields are required");
     }
 
+    if (!user || !user.id) {
+      return toast.error("User information is missing");
+    }
+
     const orderInfo = {
       cartItems,
       addressInfo,
-      email: user.email,
-      userid: user.id,
+      email: user?.email,
+      userid: user?.id,
       status: "confirmed",
       time: Timestamp.now(),
       date: new Date().toLocaleString("en-US", {
@@ -90,7 +95,7 @@ const CartPage = () => {
 
     try {
       const orderRef = collection(fireDB, "order");
-      addDoc(orderRef, orderInfo);
+      await addDoc(orderRef, orderInfo);
 
       setAddressInfo({
         name: "",
@@ -101,11 +106,16 @@ const CartPage = () => {
       toast.success("Order placed successfully");
     } catch (error) {
       console.log(error);
+      toast.error("Error placing order");
     }
   };
 
   return (
     <div className="mt-16">
+      <Toaster
+        position="top-center"
+        toastOptions={{ style: { zIndex: 10000 } }}
+      />
       {cartItems.length > 0 ? (
         <div className="container mx-auto px-4 max-w-7xl px-2 lg:px-0">
           <div className="mx-auto max-w-2xl py-8 lg:max-w-7xl">
@@ -259,7 +269,7 @@ const CartPage = () => {
                           buyNowFunction={buyNowFunction}
                         />
                       ) : (
-                        <Navigate to="/login" />
+                        <Navigate to="/login" replace={true} />
                       )}
                     </div>
                   </div>

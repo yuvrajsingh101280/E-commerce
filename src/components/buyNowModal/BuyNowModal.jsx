@@ -4,7 +4,23 @@ import { useState } from "react";
 const BuyNowModal = ({ addressInfo, setAddressInfo, buyNowFunction }) => {
   const [open, setOpen] = useState(false);
 
-  const handleOpen = () => setOpen(!false);
+  const handleOpen = () => setOpen(!open);
+
+  const handleSubmit = () => {
+    // Additional validation can be done here
+    if (
+      addressInfo.name &&
+      addressInfo.address &&
+      addressInfo.pincode &&
+      addressInfo.mobileNumber
+    ) {
+      buyNowFunction();
+      handleOpen(); // Close modal after order placement
+    } else {
+      alert("Please fill all fields");
+    }
+  };
+
   return (
     <>
       <Button
@@ -15,19 +31,19 @@ const BuyNowModal = ({ addressInfo, setAddressInfo, buyNowFunction }) => {
         Buy Now
       </Button>
 
-      <Dialog open={open} handler={handleOpen} className="bg-blue-50">
+      <Dialog open={open} handler={handleOpen} className="bg-blue-50 z-50">
         <DialogBody>
           <div className="mb-3">
             <input
               type="text"
               name="name"
               value={addressInfo.name}
-              onChange={(e) => {
+              onChange={(e) =>
                 setAddressInfo({
                   ...addressInfo,
                   name: e.target.value,
-                });
-              }}
+                })
+              }
               placeholder="Enter Your name"
               className="bg-blue-50 border border-blue-200 px-2 py-2 w-full rounded-md outline-none text-blue-600 placeholder-blue-300"
             />
@@ -37,14 +53,14 @@ const BuyNowModal = ({ addressInfo, setAddressInfo, buyNowFunction }) => {
             <input
               type="text"
               name="address"
-              placeholder="Enter Your Address"
               value={addressInfo.address}
-              onChange={(e) => {
+              onChange={(e) =>
                 setAddressInfo({
                   ...addressInfo,
                   address: e.target.value,
-                });
-              }}
+                })
+              }
+              placeholder="Enter Your Address"
               className="bg-blue-50 border border-blue-200 px-2 py-2 w-full rounded-md outline-none text-blue-600 placeholder-blue-300"
             />
           </div>
@@ -54,13 +70,13 @@ const BuyNowModal = ({ addressInfo, setAddressInfo, buyNowFunction }) => {
               type="number"
               name="pincode"
               value={addressInfo.pincode}
-              onChange={(e) => {
+              onChange={(e) =>
                 setAddressInfo({
                   ...addressInfo,
                   pincode: e.target.value,
-                });
-              }}
-              placeholder="Enter Your  Pincode"
+                })
+              }
+              placeholder="Enter Your Pincode"
               className="bg-blue-50 border border-blue-200 px-2 py-2 w-full rounded-md outline-none text-blue-600 placeholder-blue-300"
             />
           </div>
@@ -70,12 +86,12 @@ const BuyNowModal = ({ addressInfo, setAddressInfo, buyNowFunction }) => {
               type="text"
               name="mobileNumber"
               value={addressInfo.mobileNumber}
-              onChange={(e) => {
+              onChange={(e) =>
                 setAddressInfo({
                   ...addressInfo,
                   mobileNumber: e.target.value,
-                });
-              }}
+                })
+              }
               placeholder="Enter your mobile Number"
               className="bg-blue-50 border border-blue-200 px-2 py-2 w-full rounded-md outline-none text-blue-600 placeholder-blue-300"
             />
@@ -84,11 +100,8 @@ const BuyNowModal = ({ addressInfo, setAddressInfo, buyNowFunction }) => {
           <div className="">
             <Button
               type="button"
-              onClick={() => {
-                handleOpen();
-                buyNowFunction();
-              }}
-              className="bg-blue-50 border border-blue-200 px-2 py-2 w-full rounded-md outline-none text-blue-600 placeholder-blue-300"
+              onClick={handleSubmit}
+              className="bg-blue-600 text-white px-2 py-2 w-full rounded-md outline-none"
             >
               Buy Now
             </Button>
